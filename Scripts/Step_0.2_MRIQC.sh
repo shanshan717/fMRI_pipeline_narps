@@ -1,17 +1,18 @@
 #!/bin/bash
-bids_root_dir=/mnt/sdb1/Judge-fMRI-Data/bids
-output_dir=/mnt/sdb1/Judge-fMRI-Data/MRIQC_SS
+# 定义BIDS数据的根目录和MRIQC的输出目录
+bids_root_dir=/media/7T/narps/bids
+output_dir=/media/7T/narps/MRIQC
 nthreads=6
 mem=24 # memory in GB
 
-# List of participant IDs
-participants=("036" "037" "038" "039" "040" "043" "044" "045" 
-"046" "047" "049" "050" "051" "052" "053" "054" "055")
+# 列出需要进行mriqc的参与者ID
+participants=("036" "037" "038" "039" "040" "043" "044" "045")
 
+# 计算总参与者数量并初始化已处理计数，并非必须运行的代码
 total=${#participants[@]}  
 count=0  
 
-# Progress bar function
+# 显示当前进度，非必须运行的代码
 progress_bar() {
   local progress=$1
   local total=$2
@@ -30,7 +31,7 @@ progress_bar() {
   printf "] %d%% (%d/%d)\r" $percent $progress $total
 }
 
-# Loop through each participant
+# 遍历每个参与者
 for subj in "${participants[@]}"
 do
   count=$((count + 1))  
@@ -39,7 +40,7 @@ do
   echo "Running MRIQC on participant: sub-$subj"
   echo ""
 
-  # Create the MRIQC derivatives folder and participant-specific folder if they don't exist
+  # 创建输出目录
   if [ ! -d $output_dir ]; then
     mkdir -p $output_dir
   fi
@@ -48,7 +49,7 @@ do
     mkdir -p $output_dir/sub-${subj}
   fi
 
-  # Run MRIQC with the provided Docker image and settings
+  # 使用Docker运行MRIQC（必须运行的代码）
   docker run -it --rm \
     -v $bids_root_dir:/data:ro \
     -v $output_dir/sub-${subj}:/out \
@@ -62,8 +63,10 @@ do
     --verbose-reports \
     --no-sub
 
+  # 显示当前进度，非必须运行的代码
   progress_bar $count $total
   echo ""  
 done
 
+# 处理完成提示
 echo "All participants processed."
