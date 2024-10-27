@@ -6,7 +6,7 @@ nthreads=6
 mem=24 # memory in GB
 
 # 列出需要进行mriqc的参与者ID
-participants=("036" "037" "038" "039" "040" "043" "044" "045")
+participants=("036" "037" "038" "039" "040" "043" "044")
 
 # 计算总参与者数量并初始化已处理计数，并非必须运行的代码
 total=${#participants[@]}  

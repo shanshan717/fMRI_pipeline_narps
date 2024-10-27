@@ -1,7 +1,7 @@
 import os
 
 # 定义参与者ID列表
-subs = ['014', '015', '017']
+subs = ['001', '005']
 
 # 定义BIDS数据根目录、fMRIPrep输出目录和FreeSurfer license路径
 bids_root_dir = "/media/7T/narps/bids"
