@@ -25,7 +25,7 @@ for sub in subs:
         /inputbids /output participant \
         --participant_label {sub} \
         --nthreads {nthreads} --omp-nthreads {nthreads} \
-        --mem-mb 32000 --ignore slicetiming --ignore fieldmaps \
+        --mem-mb 32000 --ignore slicetiming \
         --fs-license-file /license.txt \
         --verbose
     """
